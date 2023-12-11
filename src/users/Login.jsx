@@ -2,13 +2,30 @@ import s from './Login.module.css';
 
 export default () => {
 
-  const callSession = () => {
+  const getSession = () => {
+      fetch(`${import.meta.env.VITE_API_URL}/auth`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true,
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  };
+
+  const postSession = () => {
       fetch(`${import.meta.env.VITE_API_URL}/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        withCredentials: true,
+        body: JSON.stringify({
+          username: 'your_username',
+          password: 'your_password'
+        }),
       })
       .then(response => response.json())
       .then(data => console.log(data))
@@ -28,7 +45,7 @@ export default () => {
         <input type="submit" value="로그인" />
       </form>
 
-      <button onClick={callSession()} value="Session call" />
+      <button type="button" onClick={getSession()}>Session Call</button>
     </div>
   );
 };

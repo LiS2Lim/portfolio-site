@@ -1,6 +1,20 @@
 import s from './Login.module.css';
 
 export default () => {
+
+  const callSession = () => {
+      fetch(`${import.meta.env.VITE_API_URL}/auth`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  };
+
   return (
     <div className={s.container}>
       <h1>로그인 화면</h1>
@@ -13,6 +27,8 @@ export default () => {
         </div>
         <input type="submit" value="로그인" />
       </form>
+
+      <button onClick={callSession()} value="Session call" />
     </div>
   );
 };
